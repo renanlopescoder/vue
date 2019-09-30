@@ -1,7 +1,7 @@
 export default class ProjectSercvice {
   constructor(http) {
     this.http = http;
-    this.baseURL = "https://rest-api-node.herokuapp.com/projects";
+    this.baseURL = "http://rest-api-node.herokuapp.com/projects";
   }
 
   async listAll() {
