@@ -16,7 +16,26 @@ export default class ProjectSercvice {
 
   async save(project) {
     try {
-      const response = await this.http.post(`${this.baseURL}/create`, project);
+      let response;
+      if (project._id) {
+        response = await this.http.put(
+          `${this.baseURL}/update/${project._id}`,
+          project
+        );
+      } else {
+        response = await this.http.post(`${this.baseURL}/create`, project);
+      }
+
+      return response.body;
+    } catch (error) {
+      // eslint-disable-next-line
+      console.log(error);
+    }
+  }
+
+  async select(id) {
+    try {
+      const response = await this.http.get(`${this.baseURL}/select/${id}`);
       return response.body;
     } catch (error) {
       // eslint-disable-next-line

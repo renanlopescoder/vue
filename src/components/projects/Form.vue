@@ -42,17 +42,22 @@ import Project from "../../domain/project/Project";
 export default {
   data: function() {
     return {
-      project: new Project()
+      project: new Project(),
+      id: this.$route.params.id
     };
   },
   methods: {
-    save: function() {
-      this.service.save(this.project);
+    save: async function() {
+      await this.service.save(this.project);
+      if (this.id) this.$router.push({ name: "home" });
       this.project = new Project();
     }
   },
-  created: function() {
+  created: async function() {
     this.service = new ProjectService(this.$http);
+    if (this.id) {
+      this.project = await this.service.select(this.id);
+    }
   }
 };
 </script>

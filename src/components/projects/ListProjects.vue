@@ -26,10 +26,18 @@
             <b-table striped hover :items="projectFilter" :fields="fields">
               <template v-slot:cell(project)="row">
                 {{ row.item.project }}
+                <router-link
+                  :to="{ name: 'updateProject', params: { id: row.item._id } }"
+                >
+                  <b-button variant="dark" class="mr-2 mt-2" block>
+                    Update
+                  </b-button>
+                </router-link>
                 <b-button
                   variant="danger"
                   @click="deleteProject(row.item)"
-                  class="mr-2"
+                  class="mr-2 mt-2"
+                  block
                 >
                   Delete
                 </b-button>
