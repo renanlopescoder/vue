@@ -1,6 +1,12 @@
 <template>
   <b-container class="mt-2">
     <b-row>
+      <b-col sm="12" md="12" class="text-center">
+        <h2 v-if="project._id">Update</h2>
+        <h2 v-else>New Project</h2>
+      </b-col>
+    </b-row>
+    <b-row>
       <b-col sm="12">
         <b-form @submit.prevent="save()">
           <label for="name">Name</label>
