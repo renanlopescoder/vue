@@ -1,25 +1,32 @@
 import Vue from "vue";
 
-Vue.directive("rl-transform", {
-  bind(el, binding) {
-    let current = 0;
-    el.addEventListener("click", function() {
-      let increment = binding.value || 90;
-      let effect;
+function transform(el, binding, current) {
+    const increment = binding.value || 90;
+    let effect;
 
-      if (!binding.arg || binding.arg == "rotate") {
+    if (!binding.arg || binding.arg == "rotate") {
         if (binding.modifiers.reverse) {
-          current -= increment;
+            current -= increment;
         } else {
-          current += increment;
+            current += increment;
         }
         effect = `rotate(${current}deg)`;
-      } else if (binding.arg == "scale") {
+    } else if (binding.arg == "scale") {
         effect = `scale(${increment})`;
-      }
+    }
 
-      el.style.transform = effect;
-      if (binding.modifiers.animate) el.style.transition = "transform 0.5s";
-    });
-  }
+    el.style.transform = effect;
+
+    if (binding.modifiers.animate) el.style.transition = "transform 0.5s";
+
+    return current;
+}
+
+Vue.directive("rl-transform", {
+    bind(el, binding) {
+        let current = 0;
+        el.addEventListener("click", function() {
+            current = transform(el, binding, current);
+        });
+    },
 });
